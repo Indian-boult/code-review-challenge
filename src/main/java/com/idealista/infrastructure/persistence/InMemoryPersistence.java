@@ -114,4 +114,13 @@ public class InMemoryPersistence implements AdRepository {
                 picture.getQuality().name());
     }
 
+
+    @Override
+    public Ad findAdById(Integer id) {
+        return ads.stream()
+                .filter(adVO -> adVO.getId().equals(id))
+                .findFirst()
+                .map(this::mapToDomain)
+                .orElse(null);
+    }
 }

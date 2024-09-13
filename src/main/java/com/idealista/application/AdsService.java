@@ -1,5 +1,6 @@
 package com.idealista.application;
 
+import com.idealista.infrastructure.api.AdDetails;
 import com.idealista.infrastructure.api.PublicAd;
 import com.idealista.infrastructure.api.QualityAd;
 
@@ -10,4 +11,5 @@ public interface AdsService {
     List<PublicAd> findPublicAds();
     List<QualityAd> findQualityAds();
     void calculateScores();
+    AdDetails findAdById(Integer id);
 }

@@ -10,4 +10,6 @@ public interface AdRepository {
     List<Ad> findRelevantAds();
 
     List<Ad> findIrrelevantAds();
+
+    Ad findAdById(Integer id);
 }

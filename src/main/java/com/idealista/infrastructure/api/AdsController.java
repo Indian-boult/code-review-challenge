@@ -1,12 +1,10 @@
 package com.idealista.infrastructure.api;
 
-import java.util.List;
-
 import com.idealista.application.AdsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @RestController
 public class AdsController {
@@ -28,5 +26,16 @@ public class AdsController {
     public ResponseEntity<Void> calculateScore() {
         adsService.calculateScores();
         return ResponseEntity.accepted().build();
+    }
+
+    // New endpoint to get ad by ID
+    @GetMapping("/ads/{id}")
+    public ResponseEntity<AdDetails> getAdById(@PathVariable Integer id) {
+        AdDetails adDetails = adsService.findAdById(id);
+        if (adDetails != null) {
+            return ResponseEntity.ok(adDetails);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.idealista.application;
 
 import com.idealista.domain.*;
+import com.idealista.infrastructure.api.AdDetails;
 import com.idealista.infrastructure.api.PublicAd;
 import com.idealista.infrastructure.api.QualityAd;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,5 +139,23 @@ public class AdsServiceImpl implements AdsService {
         adRepository.save(ad);
     }
 
+    @Override
+    public AdDetails findAdById(Integer id) {
+        Ad ad = adRepository.findAdById(id);
+        if (ad != null) {
+            AdDetails adDetails = new AdDetails();
+            adDetails.setId(ad.getId());
+            adDetails.setTypology(ad.getTypology().name());
+            adDetails.setDescription(ad.getDescription());
+            adDetails.setPictureUrls(ad.getPictures().stream().map(Picture::getUrl).collect(Collectors.toList()));
+            adDetails.setHouseSize(ad.getHouseSize());
+            adDetails.setGardenSize(ad.getGardenSize());
+            adDetails.setScore(ad.getScore());
+            adDetails.setIrrelevantSince(ad.getIrrelevantSince());
+            return adDetails;
+        } else {
+            return null;
+        }
+    }
 
 }
