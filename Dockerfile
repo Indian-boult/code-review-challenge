@@ -9,16 +9,19 @@ COPY pom.xml /app/
 COPY src /app/src/
 
 # Run Maven to compile the code and execute tests
-RUN mvn clean install
+RUN mvn clean test
+
+# Run Maven to package the application
+RUN mvn package
 
 # Use an official OpenJDK runtime image as a base image for the final container
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8-jre-alpine
 
 # Set the working directory inside the container
 WORKDIR /app
 
 # Copy the compiled jar file from the builder stage to the runtime image
-COPY --from=builder /app/target/ad-ranking-challenge-1.0.jar /app/ad-ranking-challenge.jar
+COPY --from=builder /app/target/*.jar /app/ad-ranking-challenge.jar
 
 # Expose the port on which the Spring Boot app runs
 EXPOSE 8080

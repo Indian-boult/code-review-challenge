@@ -38,4 +38,17 @@
 
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>com.idealista.Main</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+        <finalName>ad-ranking-challenge</finalName>
+    </build>
+
 </project>
